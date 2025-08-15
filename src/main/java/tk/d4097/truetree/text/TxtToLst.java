@@ -25,5 +25,7 @@ public class TxtToLst {
     while (lineParse.hasNext()) {
       lineParse = lineParse.next();
     }
+
+    bundle.lst().close();
   }
 }

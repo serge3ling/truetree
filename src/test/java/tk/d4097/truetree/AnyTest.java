@@ -10,7 +10,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AnyTest {
   @Test
@@ -68,5 +69,30 @@ public class AnyTest {
     for (File file : files) {
       System.out.println(file);
     }
+  }
+
+  @Test
+  void listIterator_whenStartingAtEnd_thenBackToStart() {
+    List<Integer> list = new ArrayList<>();
+    Integer[] i = new Integer[]{0, 1, 2, 3};
+    list.add(i[0]);
+    list.add(i[1]);
+    list.add(i[2]);
+    list.add(i[3]);
+    ListIterator<Integer> listIterator = list.listIterator(list.size());
+    int rix = i.length;
+
+    while (listIterator.hasPrevious()) {
+      rix--;
+      assert listIterator.previous().equals(i[rix]);
+    }
+  }
+
+  @Test
+  void test_whenFileDotDotDir_whatItIs() throws Exception {
+    String pathName = "../truetree-more";
+    File dir = new File(pathName);
+    String names = Arrays.stream(dir.listFiles()).map(File::getName).collect(Collectors.joining(", "));
+    System.out.println("Files in \"" + pathName + "\": " + names);
   }
 }

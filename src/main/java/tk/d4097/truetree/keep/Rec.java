@@ -1,6 +1,5 @@
 package tk.d4097.truetree.keep;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,10 +31,6 @@ public class Rec implements Comparable {
     return "id";
   }
 
-  public boolean hasId() {
-    return hasField(this.idName());
-  }
-
   public boolean noId() {
     return !hasField(this.idName());
   }
@@ -49,7 +44,7 @@ public class Rec implements Comparable {
     try {
       return this.id().hashCode();
     } catch (Exception ex) {
-      throw new RuntimeException("Cannot count hash code since the record does not have id.", ex);
+      throw new RuntimeException("Cannot count hash code since this Rec does not have id.", ex);
     }
   }
 
@@ -71,7 +66,7 @@ public class Rec implements Comparable {
       thisId = this.id();
       thatId = that.id();
     } catch (Exception ex) {
-      throw new RuntimeException("Cannot compare since the record does not have id.", ex);
+      throw new RuntimeException("Cannot compare since this Rec does not have id.", ex);
     }
 
     return thisId.compareTo(thatId);
@@ -86,7 +81,7 @@ public class Rec implements Comparable {
     } catch (Exception ignored) {
     }
 
-    StringBuffer strB = new StringBuffer(this.idName() + "=\"").append(id).append("\"");
+    StringBuilder strB = new StringBuilder(this.idName()).append("=\"").append(id).append("\"");
 
     for (String key : this.fieldNames()) {
       try {

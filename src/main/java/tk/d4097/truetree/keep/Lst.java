@@ -1,15 +1,19 @@
 package tk.d4097.truetree.keep;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Lst {
   private final Map<String, String> props = new HashMap<>();
   private final Map<String, Rec> recs = new HashMap<>();
+  private final String path;
+  private boolean closed;
+  private final LoadLog recLoadLog = new LoadLog();
+  private final LoadLog lstLoadLog = new LoadLog();
+
+  public Lst(String path) {
+    this.path = path;
+  }
 
   public void putProp(String key, String value) {
     props.put(key, value);
@@ -39,12 +43,56 @@ public class Lst {
     return "list";
   }
 
-  public void addRec(Rec rec) throws Exception {
-    validateRec(rec);
-    this.weld(rec);
+  public void close() throws Exception {
+    if (closed) {
+      return;
+    }
+
+    closed = true;
+
+    this.log();
   }
 
-  void weld(Rec rec) throws Exception {
+  public boolean isOpen() {
+    return !closed;
+  }
+
+  public void lay(Lst that) throws Exception {
+    String nameSpot = "${name}";
+    String errMsg = "When calling to lay(lst), Lst " + nameSpot + " is not closed yet.";
+
+    if (that.isOpen()) {
+      throw new Exception(errMsg.replace(nameSpot, that.props.get(nameName())));
+    }
+
+    if (this.isOpen()) {
+      throw new Exception(errMsg.replace(nameSpot, this.props.get(nameName())));
+    }
+
+    for (String key : that.props.keySet()) {
+      this.putProp(key, that.getProp(key));
+    }
+
+    for (LoadLogLayerIdWField key : that.recLoadLog.idWField2PathKeys()) {
+      this.recLoadLog.putIdWFieldMany(key, that.recLoadLog.getPathByIdWField(key));
+    }
+
+    for (String key : that.recLoadLog.id2PathKeys()) {
+      this.recLoadLog.putIdToPaths(key, that.recLoadLog.getPathById(key));
+    }
+
+    for (String key : that.recLoadLog.path2IdKeys()) {
+      this.recLoadLog.putPathToIds(that.recLoadLog.getIdByPath(key), key);
+    }
+  }
+
+  public void addRec(Rec rec) throws Exception {
+    this.validateRec(rec);
+    this.log(rec);
+    this.lay(rec);
+  }
+
+  void lay(Rec rec) throws Exception {
     String id = rec.id();
 
     if (!hasRecId(id)) {
@@ -58,6 +106,26 @@ public class Lst {
     }
 
     recs.put(id, recThere);
+  }
+
+  void log(Rec rec) throws Exception {
+    for (String key : rec.fieldNames()) {
+      if (rec.idName().equals(key)) {
+        recLoadLog.putIdAndPath(rec.id(), this.path);
+      } else {
+        recLoadLog.put(rec.id(), key, this.path);
+      }
+    }
+  }
+
+  private void log() throws Exception {
+    for (String key : props.keySet()) {
+      if (this.nameName().equals(key)) {
+        lstLoadLog.putIdAndPath(this.name(), this.path);
+      } else {
+        lstLoadLog.put(this.name(), key, this.path);
+      }
+    }
   }
 
   public void validateRec(Rec rec) throws Exception {
@@ -91,5 +159,13 @@ public class Lst {
 
   public Rec getById(String id) {
     return recs.get(id);
+  }
+
+  public LoadLog getRecLoadLog() {
+    return recLoadLog;
+  }
+
+  public LoadLog getLstLoadLog() {
+    return lstLoadLog;
   }
 }

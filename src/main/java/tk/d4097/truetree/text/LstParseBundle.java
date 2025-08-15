@@ -6,7 +6,7 @@ import tk.d4097.truetree.keep.Rec;
 public class LstParseBundle {
   private final Txt lines;
   private Rec rec = new Rec();
-  private final Lst lst = new Lst();
+  private final Lst lst = new Lst("test-path");
   private boolean recClosed = true;
   private final LstStringAcceptors stringAcceptors;
 
@@ -41,11 +41,7 @@ public class LstParseBundle {
     }
 
     recClosed = true;
-
-    //if (rec.hasId()) {
-      lst.addRec(rec);
-    //}
-
+    lst.addRec(rec);
     rec = new Rec();
   }
 

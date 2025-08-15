@@ -95,4 +95,15 @@ public class AnyTest {
     String names = Arrays.stream(dir.listFiles()).map(File::getName).collect(Collectors.joining(", "));
     System.out.println("Files in \"" + pathName + "\": " + names);
   }
+
+  @Test
+  void regex_whenAll_thenAll() {
+    String rgx = ".*\\Q~t-lst-\\E.*\\Q.yml\\E$";
+
+    String ok1 = "dir/~t-lst-test0.yml";
+    assert ok1.matches(rgx);
+
+    String ok2 = "~t-lst-test0.yml";
+    assert ok2.matches(rgx);
+  }
 }

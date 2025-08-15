@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class FileTxt {
+abstract public class FileTxt {
   protected final InputStream inputStream;
   private boolean wasRead;
   protected Txt txt;
@@ -43,5 +43,5 @@ abstract class FileTxt {
     afterRead();
   }
 
-  abstract void afterRead();
+  abstract public void afterRead() throws Exception;
 }

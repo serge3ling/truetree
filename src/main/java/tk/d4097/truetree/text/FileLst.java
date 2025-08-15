@@ -9,7 +9,7 @@ public class FileLst extends FileTxt {
   private TxtToLst txtToLst;
 
   public FileLst(String filename) throws Exception {
-    this(new FileInputStream(filename));
+    super(filename);
   }
 
   public FileLst(InputStream inputStream) {
@@ -17,7 +17,7 @@ public class FileLst extends FileTxt {
   }
 
   @Override
-  void afterRead() {
+  public void afterRead() {
     txtToLst = new TxtToLst(txt);
   }
 

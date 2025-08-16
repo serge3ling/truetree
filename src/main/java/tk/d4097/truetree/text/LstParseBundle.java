@@ -6,17 +6,18 @@ import tk.d4097.truetree.keep.Rec;
 public class LstParseBundle {
   private final Txt lines;
   private Rec rec = new Rec();
-  private final Lst lst = new Lst("test-path");
+  private final Lst lst;
   private boolean recClosed = true;
   private final LstStringAcceptors stringAcceptors;
 
-  public LstParseBundle(Txt lines) {
-    this(lines, new LstStringAcceptors());
+  public LstParseBundle(Txt lines, String path) {
+    this(lines, path, new LstStringAcceptors());
   }
 
-  public LstParseBundle(Txt lines, LstStringAcceptors stringAcceptors) {
+  public LstParseBundle(Txt lines, String path, LstStringAcceptors stringAcceptors) {
     this.lines = lines;
     this.stringAcceptors = stringAcceptors;
+    lst = new Lst(path);
   }
 
   public Txt lines() {

@@ -11,7 +11,7 @@ class LstRootLevelStepTest {
   LstParseBundle initBundle(String[] stringArray) {
     List<String> list = Arrays.stream(stringArray).toList();
     Txt lines = new Txt.Stub(list);
-    return new LstParseBundle(lines);
+    return new LstParseBundle(lines, "test-path");
   }
 
   @Test

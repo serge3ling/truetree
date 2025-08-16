@@ -11,6 +11,11 @@ public class Lst {
   private final LoadLog recLoadLog = new LoadLog();
   private final LoadLog lstLoadLog = new LoadLog();
 
+  public Lst(String path, String name) {
+    this(path);
+    putProp(nameName(), name);
+  }
+
   public Lst(String path) {
     this.path = path;
   }
@@ -29,6 +34,10 @@ public class Lst {
     }
 
     return props.get(key);
+  }
+
+  public Map<String, Rec> getRecs() {
+    return recs;
   }
 
   public boolean hasName() {
@@ -165,7 +174,47 @@ public class Lst {
     return recLoadLog;
   }
 
-  public LoadLog getLstLoadLog() {
-    return lstLoadLog;
+  @Override
+  public int hashCode() {
+    int pathChunk = path.hashCode();
+    int nameChunk = 0;
+
+    if (hasName()) {
+      try {
+        nameChunk = name().hashCode();
+      } catch (Exception ignored) {}
+    }
+
+    return pathChunk * 37 + nameChunk;
+  }
+
+  @Override
+  public boolean equals(Object thatObj) {
+    if (!(thatObj instanceof Lst that)) {
+      return false;
+    }
+
+    boolean bothNamesAreThere = this.hasName() && that.hasName();
+    boolean namesSame = bothNamesAreThere || (!this.hasName() && !that.hasName());
+
+    if (bothNamesAreThere) {
+      try {
+        namesSame = this.name().equals(that.name());
+      } catch (Exception ignored) {
+      }
+    }
+
+    return namesSame && this.path.equals(that.path);
+  }
+
+  @Override
+  public String toString() {
+    String nameStr = "no-name";
+
+    try {
+      nameStr = "name=\"" + name() + "\"";
+    } catch (Exception ignored) {}
+
+    return "path=\"" + path + "\", " + nameStr + ", records are " + recs.size();
   }
 }

@@ -34,20 +34,23 @@ public class Main {
 
   private String defaultCfgFilename() throws Exception {
     String outerFilename = "../truetree-more/cfg.yml";
-    File outerCfg = new File(outerFilename);
 
-    if (outerCfg.exists() && outerCfg.isFile()) {
+    if (cfgFileIsGood(outerFilename)) {
       return outerFilename;
     }
 
     String inPlaceFilename = "cfg.yml";
-    File inPlaceCfg = new File(inPlaceFilename);
 
-    if (inPlaceCfg.exists() && inPlaceCfg.isFile()) {
+    if (cfgFileIsGood(inPlaceFilename)) {
       return inPlaceFilename;
     }
 
     throw new Exception("Default cfg filenames cannot be used.");
+  }
+
+  private boolean cfgFileIsGood(String filename) throws Exception {
+    File file = new File(filename);
+    return file.exists() && file.isFile() && file.canRead();
   }
 
   public static void main(String[] args) throws Exception {

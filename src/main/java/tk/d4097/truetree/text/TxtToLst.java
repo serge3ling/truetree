@@ -4,8 +4,8 @@ public class TxtToLst {
   private final LstParseBundle bundle;
   private boolean done;
 
-  public TxtToLst(Txt txt) {
-    this.bundle = new LstParseBundle(txt);
+  public TxtToLst(Txt txt, String path) {
+    this.bundle = new LstParseBundle(txt, path);
   }
 
   public LstParseBundle getBundle() throws Exception {

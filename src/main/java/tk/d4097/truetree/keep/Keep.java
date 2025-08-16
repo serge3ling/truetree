@@ -5,6 +5,8 @@ import tk.d4097.truetree.TreeWalk;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -20,7 +22,7 @@ public class Keep implements DataKeep {
   public void go() throws Exception {
     Predicate<File> predicate = new TreeWalkPredicate();
     Consumer<File> consumer = new TreeWalkConsumer(this);
-    TreeWalk treeWalk = new TreeWalk(new File(cfg.topDir()), predicate, consumer);
+    TreeWalk treeWalk = new TreeWalk(cfg.topDirFile(), predicate, consumer);
     treeWalk.walk();
   }
 
@@ -31,11 +33,35 @@ public class Keep implements DataKeep {
 
   @Override
   public boolean hasLst(Lst lst) {
-    return lsts.contains(lst); // toDo: write the "equals" method on Lst with name and path
+    return lsts.contains(lst);
   }
 
   @Override
-  public Lst getLstByName(String name, String path) {
-    return null; // toDo: do
+  public Lst getLst(String path, String name) throws Exception {
+    boolean found = false;
+    Iterator<Lst> iterator = lsts.iterator();
+    Lst against = new Lst(path, name);
+    against.putProp(against.nameName(), name);
+    Lst lstFound = against;
+
+    while (iterator.hasNext()) {
+      lstFound = iterator.next();
+
+      if (lstFound.equals(against)) {
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      throw new Exception("Not found a Lst with path \"" + path + "\" and name \"" + name + "\".");
+    }
+
+    return lstFound;
+  }
+
+  @Override
+  public Collection<Lst> lsts() {
+    return lsts;
   }
 }

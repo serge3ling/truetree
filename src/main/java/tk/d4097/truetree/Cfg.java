@@ -2,7 +2,11 @@ package tk.d4097.truetree;
 
 import tk.d4097.truetree.text.FileTxt;
 
+import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +47,20 @@ public class Cfg extends FileTxt {
 
   public String topDir() throws Exception {
     return prop("top-dir");
+  }
+
+  public File topDirFile() throws Exception {
+    String resPfx = "$resource/";
+
+    if (topDir().startsWith(resPfx)) {
+      String topDirRemade = topDir().substring(resPfx.length()).trim();
+      ClassLoader classLoader = getClass().getClassLoader();
+      URL resUrl = classLoader.getResource(topDirRemade);
+      Path resPath = Paths.get(resUrl.toURI());
+      return resPath.toFile();
+    }
+
+    return new File(topDir());
   }
 
   public String prop(String prop) throws Exception {

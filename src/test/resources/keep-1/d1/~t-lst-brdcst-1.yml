@@ -1,0 +1,10 @@
+list: brdcst
+items:
+  - id: bbc
+    capital: London
+  - id: cbs
+    capital: Washington
+  - id: nbc
+    capital: Washington
+  - id: rai
+    capital: Rome

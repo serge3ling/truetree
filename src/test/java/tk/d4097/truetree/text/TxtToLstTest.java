@@ -25,7 +25,7 @@ class TxtToLstTest {
         "    v: value2"
     });
 
-    TxtToLst txtToLst = new TxtToLst(txt);
+    TxtToLst txtToLst = new TxtToLst(txt, "test-path");
 
     assert (txtToLst.getBundle().lst().size() == 2);
   }
@@ -42,7 +42,7 @@ class TxtToLstTest {
         "    fld: value2"
     });
 
-    TxtToLst txtToLst = new TxtToLst(txt);
+    TxtToLst txtToLst = new TxtToLst(txt, "test-path");
 
     assert (txtToLst.getBundle().lst().size() == 2);
   }
@@ -72,7 +72,7 @@ class TxtToLstTest {
         "    " + fld + ": " + fld1
     });
 
-    TxtToLst txtToLst = new TxtToLst(txt);
+    TxtToLst txtToLst = new TxtToLst(txt, "test-path");
     Rec rec1 = txtToLst.getBundle().lst().getById(id1);
 
     assert (rec1.id().equals(id1) && rec1.get(fld).equals(fld1)
@@ -110,7 +110,7 @@ class TxtToLstTest {
         "    " + fld + ": " + fld1,
     });
 
-    TxtToLst txtToLst = new TxtToLst(txt);
+    TxtToLst txtToLst = new TxtToLst(txt, "test-path");
     Rec rec1 = txtToLst.getBundle().lst().getById(id1);
 
     assert (rec1.id().equals(id1) && rec1.get(fld).equals(fld1)
@@ -124,7 +124,7 @@ class TxtToLstTest {
         "# no items"
     });
 
-    TxtToLst txtToLst = new TxtToLst(txt);
+    TxtToLst txtToLst = new TxtToLst(txt, "test-path");
     assert txtToLst.getBundle().lst().size() == 0;
   }
 
@@ -138,7 +138,7 @@ class TxtToLstTest {
         "# ends here"
     });
 
-    TxtToLst txtToLst = new TxtToLst(txt);
+    TxtToLst txtToLst = new TxtToLst(txt, "test-path");
     assert txtToLst.getBundle().lst().size() == 1;
   }
 }

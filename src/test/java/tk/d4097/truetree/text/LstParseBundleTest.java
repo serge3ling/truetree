@@ -10,7 +10,7 @@ class LstParseBundleTest {
   @Test
   void construct_whenEmptyArgs_thenStringAcceptorsInitialized() {
     Txt txt = new Txt.Stub(new ArrayList<>());
-    LstParseBundle bundle = new LstParseBundle(txt);
+    LstParseBundle bundle = new LstParseBundle(txt, "test-path");
     assert bundle.getStringAcceptors() != null;
   }
 }

@@ -22,7 +22,7 @@ class FileLstTest {
     // Can be used like this as well:
     // InputStream inputStream = new FileInputStream("resources/dir-1/tst-1.yml")
     try (InputStream inputStream = classLoader.getResourceAsStream("tst-1.yml")) {
-      FileLst fileLst = new FileLst(inputStream);
+      FileLst fileLst = new FileLst(inputStream, "tst-path");
       Lst lst = fileLst.lst();
       assert (lst.size() == 1) && lst.getById("rai").get("country").equals("it");
     }

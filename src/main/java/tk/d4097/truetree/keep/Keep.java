@@ -20,9 +20,9 @@ public class Keep implements DataKeep {
   }
 
   public void go() throws Exception {
-    Predicate<File> predicate = new TreeWalkPredicate();
-    Consumer<File> consumer = new TreeWalkConsumer(this);
-    TreeWalk treeWalk = new TreeWalk(cfg.topDirFile(), predicate, consumer);
+    Predicate<File> lstPredicate = new TreeWalkLstPredicate();
+    Consumer<File> lstConsumer = new TreeWalkLstConsumer(this);
+    TreeWalk treeWalk = new TreeWalk(cfg.topDirFile(), lstPredicate, lstConsumer);
     treeWalk.walk();
   }
 

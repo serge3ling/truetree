@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 public class Keep implements DataKeep {
   private final Cfg cfg;
   private final List<Lst> lsts = new ArrayList<>();
+  private final List<Rec> dirProps = new ArrayList<>();
 
   public Keep(Cfg cfg) {
     this.cfg = cfg;
@@ -22,8 +23,14 @@ public class Keep implements DataKeep {
   public void go() throws Exception {
     Predicate<File> lstPredicate = new TreeWalkLstPredicate();
     Consumer<File> lstConsumer = new TreeWalkLstConsumer(this);
-    TreeWalk treeWalk = new TreeWalk(cfg.topDirFile(), lstPredicate, lstConsumer);
-    treeWalk.walk();
+    TreeWalk lstTreeWalk = new TreeWalk(cfg.topDirFile(), lstPredicate, lstConsumer);
+    lstTreeWalk.walk();
+
+    Predicate<File> dirPropPredicate = new TreeWalkDirPropPredicate();
+    Consumer<File> dirPropConsumer = new TreeWalkDirPropConsumer(this);
+    TreeWalk dirPropTreeWalk
+        = new TreeWalk(cfg.topDirFile(), dirPropPredicate, dirPropConsumer);
+    dirPropTreeWalk.walk();
   }
 
   @Override
@@ -63,5 +70,13 @@ public class Keep implements DataKeep {
   @Override
   public Collection<Lst> lsts() {
     return lsts;
+  }
+
+  public void addDirPropRec(Rec rec) {
+    dirProps.add(rec);
+  }
+
+  public Iterator<Rec> dirPropRecIterator() {
+    return dirProps.iterator();
   }
 }

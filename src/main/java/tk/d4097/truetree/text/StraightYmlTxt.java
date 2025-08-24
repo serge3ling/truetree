@@ -3,6 +3,7 @@ package tk.d4097.truetree.text;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class StraightYmlTxt extends FileTxt {
   private final Map<String, String> props = new HashMap<>();
@@ -47,5 +48,10 @@ public class StraightYmlTxt extends FileTxt {
     }
 
     return props.get(prop);
+  }
+
+  public Set<Map.Entry<String, String>> propEntries() throws Exception {
+    read();
+    return props.entrySet();
   }
 }

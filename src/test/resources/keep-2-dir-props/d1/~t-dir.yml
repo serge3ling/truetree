@@ -1,3 +1,4 @@
 name: First Directory (d1)
-sub-dir-is-lst: brdcst
+sub-dir-list: brdcst
+sub-dirs-not-in-list: common:all
 tags: first, d1

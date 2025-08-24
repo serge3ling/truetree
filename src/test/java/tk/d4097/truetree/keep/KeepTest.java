@@ -31,6 +31,10 @@ class KeepTest {
       keep.go();
       Rec rec0 = keep.dirPropRecIterator().next();
       assert rec0.get("name").equals("First Directory (d1)");
+      Lst lst0 = keep.lsts().iterator().next();
+      assert lst0.name().equals("brdcst");
+      Rec lst0Rec0 = lst0.getRecs().values().iterator().next();
+      assert lst0Rec0.id().equals("cbs");
     }
   }
 }

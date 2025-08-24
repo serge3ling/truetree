@@ -21,7 +21,7 @@ public class AnyTest {
     try {
       iterator.next();
     } catch (Exception e) {
-      System.out.println("iterator.next where no next, exception message: " + e.getLocalizedMessage());
+      System.out.println("iterator.next where no next, exception message: " + e.getLocalizedMessage() + ", " + e.getClass());
     }
   }
 

@@ -2,7 +2,7 @@ package tk.d4097.truetree.keep.ask.likeness;
 
 import tk.d4097.truetree.keep.Rec;
 
-abstract public class FieldLikeness implements Likeness {
+abstract public class FieldLikeness<T extends CanHaveField> implements Likeness<T> {
   protected final String fld;
   protected final String val;
 
@@ -12,10 +12,10 @@ abstract public class FieldLikeness implements Likeness {
   }
 
   @Override
-  public boolean isGood(Rec rec) {
-    if (rec.hasField(fld)) {
+  public boolean isGood(T chf) {
+    if (chf.hasField(fld)) {
       try {
-        return isGoodValue(rec.get(fld));
+        return isGoodValue(chf.get(fld));
       } catch (Exception ignored) {
       }
     }

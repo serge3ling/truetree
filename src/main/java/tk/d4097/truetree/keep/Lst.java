@@ -1,9 +1,11 @@
 package tk.d4097.truetree.keep;
 
+import tk.d4097.truetree.keep.ask.likeness.CanHaveField;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Lst {
+public class Lst implements CanHaveField {
   private final Map<String, String> props = new HashMap<>();
   private final Map<String, Rec> recs = new HashMap<>();
   private final String path;
@@ -24,8 +26,18 @@ public class Lst {
     props.put(key, value);
   }
 
+  @Override
+  public boolean hasField(String fld) {
+    return hasProp(fld);
+  }
+
   public boolean hasProp(String key) {
     return props.containsKey(key);
+  }
+
+  @Override
+  public String get(String fld) throws Exception {
+    return getProp(fld);
   }
 
   public String getProp(String key) throws Exception {

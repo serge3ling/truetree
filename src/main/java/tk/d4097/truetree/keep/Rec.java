@@ -1,16 +1,19 @@
 package tk.d4097.truetree.keep;
 
+import tk.d4097.truetree.keep.ask.likeness.CanHaveField;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Rec implements Comparable {
+public class Rec implements Comparable, CanHaveField {
   private final Map<String, String> fields = new HashMap<>();
 
   public void put(String key, String val) {
     fields.put(key, val);
   }
 
+  @Override
   public boolean hasField(String key) {
     return fields.containsKey(key);
   }
@@ -19,6 +22,7 @@ public class Rec implements Comparable {
     return fields.keySet();
   }
 
+  @Override
   public String get(String key) throws Exception {
     if (!hasField(key)) {
       throw new Exception("This Rec does not have field \"" + key + "\".");

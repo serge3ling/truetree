@@ -3,7 +3,10 @@ package tk.d4097.truetree.keep.ask;
 import org.junit.jupiter.api.Test;
 import tk.d4097.truetree.Cfg;
 import tk.d4097.truetree.keep.Keep;
+import tk.d4097.truetree.keep.Lst;
 import tk.d4097.truetree.keep.Rec;
+import tk.d4097.truetree.keep.ask.likeness.DirHasTag;
+import tk.d4097.truetree.keep.ask.likeness.DirIs;
 import tk.d4097.truetree.keep.ask.likeness.Has;
 import tk.d4097.truetree.keep.ask.likeness.Likeness;
 
@@ -18,10 +21,11 @@ class AskTest {
       Cfg cfg = new Cfg(inputStream);
       Keep keep = new Keep(cfg);
       keep.go();
+      List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
       List<Likeness<Rec>> likenesses = new ArrayList<>();
       likenesses.add(new Has<>("capital", "Washington"));
       List<String> ids = Arrays.asList("cbs", "nbc");
-      Ask ask = new Ask(likenesses, "brdcst", keep);
+      Ask ask = new Ask(dirLikenesses, likenesses, "brdcst", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;
@@ -43,10 +47,11 @@ class AskTest {
       Cfg cfg = new Cfg(inputStream);
       Keep keep = new Keep(cfg);
       keep.go();
+      List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
       List<Likeness<Rec>> likenesses = new ArrayList<>();
       likenesses.add(new Has<>("full-name", "Corporation"));
       List<String> ids = Arrays.asList("bbc");
-      Ask ask = new Ask(likenesses, "brdcst", keep);
+      Ask ask = new Ask(dirLikenesses, likenesses, "brdcst", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;
@@ -68,9 +73,10 @@ class AskTest {
       Cfg cfg = new Cfg(inputStream);
       Keep keep = new Keep(cfg);
       keep.go();
+      List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
       List<Likeness<Rec>> likenesses = new ArrayList<>();
       List<String> ids = Arrays.asList("bbc", "rai", "cbs", "nbc");
-      Ask ask = new Ask(likenesses, "brdcst", keep);
+      Ask ask = new Ask(dirLikenesses, likenesses, "brdcst", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;
@@ -82,6 +88,34 @@ class AskTest {
       }
 
       assert (cnt == 6);
+    }
+  }
+
+  @Test
+  void find_whenDirLstPayments_thenFound() throws Exception {
+    ClassLoader classLoader = getClass().getClassLoader();
+    try (InputStream inputStream = classLoader.getResourceAsStream("keep-3/cfg.yml")) {
+      Cfg cfg = new Cfg(inputStream);
+      Keep keep = new Keep(cfg);
+      keep.go();
+      List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
+      dirLikenesses.add(new DirIs<>("payments"));
+      List<Likeness<Rec>> likenesses = new ArrayList<>();
+
+      Ask ask = new Ask(dirLikenesses, likenesses, "", keep);
+      Answer answer = ask.find();
+      Iterator<AnswerRec> iterator = answer.iterator();
+      int cnt = 0;
+
+      while (iterator.hasNext()) {
+        cnt++;
+        AnswerRec answerRec = iterator.next();
+        System.out.println(answerRec);
+        //assert ids.contains(answerRec.getRec().id());
+      }
+
+      System.out.println("cnt: " + cnt);
+      //assert (cnt == 6);
     }
   }
 }

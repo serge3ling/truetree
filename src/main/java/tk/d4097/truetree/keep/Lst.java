@@ -22,6 +22,10 @@ public class Lst implements CanHaveField {
     this.path = path;
   }
 
+  public String getPath() {
+    return path;
+  }
+
   public void putProp(String key, String value) {
     props.put(key, value);
   }

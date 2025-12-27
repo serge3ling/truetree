@@ -1,5 +1,6 @@
 package tk.d4097.truetree.keep;
 
+import tk.d4097.truetree.keep.ask.likeness.DirNameProp;
 import tk.d4097.truetree.text.StraightYmlTxt;
 
 import java.io.File;
@@ -53,6 +54,15 @@ public class TreeWalkDirPropConsumer implements Consumer<File> {
     }
 
     Lst lst = new Lst(file.getPath(), listId);
+    DirNameProp dirNameProp = new DirNameProp();
+
+    for (String fieldName : rec.fieldNames()) {
+      if (dirNameProp.nameInText().equals(fieldName)) {
+        lst.putProp(dirNameProp.nameInLst(), rec.get(fieldName));
+      } else {
+        lst.putProp(fieldName, rec.get(fieldName));
+      }
+    }
 
     for (File f : files) {
       Rec subDirLstRec = new Rec();

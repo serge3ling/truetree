@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import tk.d4097.truetree.Cfg;
 import tk.d4097.truetree.keep.Keep;
 import tk.d4097.truetree.keep.Rec;
-import tk.d4097.truetree.keep.ask.likeness.CanHaveField;
 import tk.d4097.truetree.keep.ask.likeness.Has;
 import tk.d4097.truetree.keep.ask.likeness.Likeness;
 
@@ -59,6 +58,30 @@ class AskTest {
       }
 
       assert (cnt == 1);
+    }
+  }
+
+  @Test
+  void find_whenDirLst_thenFound() throws Exception {
+    ClassLoader classLoader = getClass().getClassLoader();
+    try (InputStream inputStream = classLoader.getResourceAsStream("keep-3/cfg.yml")) {
+      Cfg cfg = new Cfg(inputStream);
+      Keep keep = new Keep(cfg);
+      keep.go();
+      List<Likeness<Rec>> likenesses = new ArrayList<>();
+      List<String> ids = Arrays.asList("bbc", "rai", "cbs", "nbc");
+      Ask ask = new Ask(likenesses, "brdcst", keep);
+      Answer answer = ask.find();
+      Iterator<AnswerRec> iterator = answer.iterator();
+      int cnt = 0;
+
+      while (iterator.hasNext()) {
+        cnt++;
+        AnswerRec answerRec = iterator.next();
+        assert ids.contains(answerRec.getRec().id());
+      }
+
+      assert (cnt == 6);
     }
   }
 }

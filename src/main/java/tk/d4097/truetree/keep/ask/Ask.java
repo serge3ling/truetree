@@ -3,8 +3,6 @@ package tk.d4097.truetree.keep.ask;
 import tk.d4097.truetree.keep.Keep;
 import tk.d4097.truetree.keep.Lst;
 import tk.d4097.truetree.keep.Rec;
-import tk.d4097.truetree.keep.ask.likeness.CanHaveField;
-import tk.d4097.truetree.keep.ask.likeness.FieldLikeness;
 import tk.d4097.truetree.keep.ask.likeness.Likeness;
 
 import java.util.List;
@@ -22,6 +20,7 @@ public class Ask {
 
   public Answer find() throws Exception {
     Answer answer = new Answer();
+    var noLikenesses = likenesses.isEmpty();
 
     for (Lst lst : keep.lsts()) {
       if (!lst.name().equals(lstName)) {
@@ -29,6 +28,11 @@ public class Ask {
       }
 
       for (Rec rec : lst.getRecs().values()) {
+        if (noLikenesses) {
+          answer.add(new AnswerRec(rec, lst));
+          continue;
+        }
+
         for (Likeness<Rec> likeness : likenesses) {
           if (likeness.isGood(rec)) {
             answer.add(new AnswerRec(rec, lst));

@@ -1,0 +1,4 @@
+name: payments
+sub-dir-list: brdcst
+sub-dirs-not-in-list: common
+tags: payment docs, money

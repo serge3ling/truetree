@@ -1,0 +1,18 @@
+list: brdcst
+items:
+  - id: bbc
+    name: BBC
+    full-name: British Broadcasting Corporation
+    country: uk
+  - id: cbs
+    name: CBS
+    full-name: Columbia Broadcasting System
+    country: us
+  - id: nbc
+    name: NBC
+    full-name: National Broadcasting Company
+    country: us
+  - id: rai
+    name: Rai
+    full-name: Radiotelevisione italiana
+    country: it

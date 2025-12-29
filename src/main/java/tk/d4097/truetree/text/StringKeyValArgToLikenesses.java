@@ -4,6 +4,7 @@ import tk.d4097.truetree.keep.Lst;
 import tk.d4097.truetree.keep.Rec;
 import tk.d4097.truetree.keep.ask.likeness.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StringKeyValArgToLikenesses {
@@ -23,6 +24,10 @@ public class StringKeyValArgToLikenesses {
 
   private final String quote2 = "'";
   private final int quote2Len = quote2.length();
+
+  public StringKeyValArgToLikenesses() {
+    this(new ArrayList<>(), new ArrayList<>());
+  }
 
   public StringKeyValArgToLikenesses(
       List<Likeness<Lst>> dirLikenesses,

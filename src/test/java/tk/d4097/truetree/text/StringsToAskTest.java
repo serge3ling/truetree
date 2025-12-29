@@ -3,16 +3,11 @@ package tk.d4097.truetree.text;
 import org.junit.jupiter.api.Test;
 import tk.d4097.truetree.Cfg;
 import tk.d4097.truetree.keep.Keep;
-import tk.d4097.truetree.keep.Lst;
-import tk.d4097.truetree.keep.Rec;
 import tk.d4097.truetree.keep.ask.Answer;
 import tk.d4097.truetree.keep.ask.AnswerRec;
 import tk.d4097.truetree.keep.ask.Ask;
-import tk.d4097.truetree.keep.ask.likeness.DirIs;
-import tk.d4097.truetree.keep.ask.likeness.Likeness;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 

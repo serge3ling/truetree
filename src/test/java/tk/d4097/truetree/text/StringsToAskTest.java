@@ -24,7 +24,7 @@ class StringsToAskTest {
       keep.go();
       List<String> likenessStrings = List.of("dir-has-tag=money");
       StringsToAsk stringsToAsk = new StringsToAsk();
-      Ask ask = stringsToAsk.makeAsk(likenessStrings, "", keep);
+      Ask ask = stringsToAsk.makeAsk(likenessStrings, keep);
 
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();

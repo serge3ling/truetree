@@ -9,11 +9,12 @@ import tk.d4097.truetree.keep.ask.likeness.Likeness;
 import java.util.List;
 
 public class StringsToAsk {
-  public Ask makeAsk(List<String> keyValStrings, String lstName, Keep keep) {
+  public Ask makeAsk(List<String> keyValStrings, Keep keep) {
     StringKeyValArgToLikenesses mapper = new StringKeyValArgToLikenesses();
     mapper.handle(keyValStrings);
     List<Likeness<Lst>> dirLikenesses = mapper.getDirLikenesses();
     List<Likeness<Rec>> likenesses = mapper.getLikenesses();
+    String lstName = mapper.getLstName();
     return new Ask(dirLikenesses, likenesses, lstName, keep);
   }
 }

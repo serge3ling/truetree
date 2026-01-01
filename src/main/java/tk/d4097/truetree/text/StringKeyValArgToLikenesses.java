@@ -12,6 +12,7 @@ public class StringKeyValArgToLikenesses {
   private final List<Likeness<Rec>> likenesses;
   private final StringKeyValArgDirLikenessMap dirLikenessMap;
   private final StringKeyValArgLikenessMap likenessMap;
+  private String lstName = "";
 
   private final String assignSplit = "=";
   private final int assignSplitLen = assignSplit.length();
@@ -61,6 +62,10 @@ public class StringKeyValArgToLikenesses {
     return likenesses;
   }
 
+  public String getLstName() {
+    return lstName;
+  }
+
   public void handle(List<String> keyValStrings) {
     for (String string : keyValStrings) {
       handle(string);
@@ -92,6 +97,8 @@ public class StringKeyValArgToLikenesses {
       dirLikenesses.add(dirLikenessMap.get(likenessName).apply(val));
     } else if (likenessMap.has(likenessName)) {
       likenesses.add(likenessMap.get(likenessName).apply(fld, val));
+    } else if (likenessName.equals("lst-name")) {
+      lstName = val;
     }
   }
 

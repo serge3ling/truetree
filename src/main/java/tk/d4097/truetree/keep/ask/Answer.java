@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Answer {
-  private List<AnswerRec> answerRecs = new ArrayList<>();
+  private final List<AnswerRec> answerRecs = new ArrayList<>();
 
   public void add(AnswerRec answerRec) {
     answerRecs.add(answerRec);

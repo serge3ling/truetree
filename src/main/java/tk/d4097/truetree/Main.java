@@ -1,6 +1,7 @@
 package tk.d4097.truetree;
 
 import tk.d4097.truetree.keep.Keep;
+import tk.d4097.truetree.ui.swing.MainSwingWnd;
 
 import java.io.File;
 
@@ -30,6 +31,18 @@ public class Main {
 
     keep = new Keep(cfg);
     keep.go();
+
+    String uiName = cfg.ui();
+
+    switch (uiName.toLowerCase()) {
+      case "swing":
+        new MainSwingWnd(cfg, keep).go();
+        break;
+
+      default:
+        throw new Exception("Unknown UI name: \"" + uiName + "\" in config file."
+            + " You can use: Swing.");
+    }
   }
 
   private String defaultCfgFilename() throws Exception {

@@ -37,4 +37,8 @@ public class Cfg {
 
     return new File(topDir());
   }
+
+  public String ui() throws Exception {
+    return straightYml.prop("ui");
+  }
 }

@@ -24,6 +24,7 @@ public class MainSwingWnd implements Runnable {
   private final JTextArea txtArea;
   private final JScrollPane txtScrollPane;
   private final JButton seekBtn;
+  private final JButton refreshBtn;
   private final JTable table;
   private final JScrollPane tableScrollPane;
 
@@ -35,6 +36,7 @@ public class MainSwingWnd implements Runnable {
     txtArea = new JTextArea(3, 90);
     txtScrollPane = new JScrollPane(txtArea);
     seekBtn = new JButton("Seek");
+    refreshBtn = new JButton("Refresh");
     table = new JTable();
     tableScrollPane = new JScrollPane(table);
 
@@ -50,10 +52,12 @@ public class MainSwingWnd implements Runnable {
 
   public void go() throws Exception {
     seekBtn.addActionListener(new SeekBtnListener());
+    refreshBtn.addActionListener(new RefreshBtnListener());
 
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
     panel.add(txtScrollPane);
     panel.add(seekBtn);
+    panel.add(refreshBtn);
     panel.add(tableScrollPane);
 
     frame.setContentPane(panel);
@@ -71,7 +75,7 @@ public class MainSwingWnd implements Runnable {
 
   class SeekBtnListener implements ActionListener {
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
       String askStr = txtArea.getText();
       StringKeyValArgs stringKeyValArgs = new StringKeyValArgs(askStr);
       List<String> likenessStrings = stringKeyValArgs.split();
@@ -93,6 +97,18 @@ public class MainSwingWnd implements Runnable {
           model.addRow(rowData);
         }
 
+        table.setModel(model);
+      } catch (Exception ignored) {
+      }
+    }
+  }
+
+  class RefreshBtnListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+      try {
+        keep.go();
+        DefaultTableModel model = new DefaultTableModel();
         table.setModel(model);
       } catch (Exception ignored) {
       }

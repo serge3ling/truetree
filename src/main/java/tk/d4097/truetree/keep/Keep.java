@@ -21,6 +21,8 @@ public class Keep implements DataKeep {
   }
 
   public void go() throws Exception {
+    lsts.clear();
+    dirProps.clear();
     Predicate<File> lstPredicate = new TreeWalkLstPredicate();
     Consumer<File> lstConsumer = new TreeWalkLstConsumer(this);
     TreeWalk lstTreeWalk = new TreeWalk(cfg.topDirFile(), lstPredicate, lstConsumer);

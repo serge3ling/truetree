@@ -6,6 +6,7 @@ import tk.d4097.truetree.keep.Keep;
 import tk.d4097.truetree.text.StringsToAsk;
 
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -24,10 +25,10 @@ class AnswerGridModelTest {
       Answer answer = ask.find();
       AnswerGridModel gridModel = new AnswerGridModel(answer);
       String[][] array = gridModel.getArray();
-      Set<String> colNames = gridModel.getColNames();
+      Collection<String> colNames = gridModel.getColNames();
       int colCnt = colNames.size();
 
-      assert colCnt == 1;
+      assert colCnt == 3;
       assert colNames.iterator().next().equals("id");
       assert array.length == 2;
       assert array[0][0].equals("bbc");

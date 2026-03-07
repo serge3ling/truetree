@@ -14,7 +14,7 @@ public class Ask {
   private final List<Likeness<Lst>> pathLikenesses;
   private final List<Likeness<Rec>> likenesses;
   private final Keep keep;
-  private List<Lst> lsts = new ArrayList<>();
+  private final List<Lst> lsts = new ArrayList<>();
 
   public Ask(
       List<Likeness<Lst>> dirLikenesses,

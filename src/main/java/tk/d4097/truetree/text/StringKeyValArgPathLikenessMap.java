@@ -1,19 +1,18 @@
 package tk.d4097.truetree.text;
 
 import tk.d4097.truetree.keep.Lst;
-import tk.d4097.truetree.keep.ask.likeness.*;
+import tk.d4097.truetree.keep.ask.likeness.Likeness;
+import tk.d4097.truetree.keep.ask.likeness.PathHas;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class StringKeyValArgDirLikenessMap {
+public class StringKeyValArgPathLikenessMap {
   private final Map<String, Function<String, Likeness<Lst>>> map = new HashMap<>();
 
-  public StringKeyValArgDirLikenessMap() {
-    map.put("dir-is", DirIs::new);
-    map.put("dir-has-tag", DirHasTag::new);
-    map.put("dir-has-in-tags", DirHasInTags::new);
+  public StringKeyValArgPathLikenessMap() {
+    map.put("path-has", PathHas::new);
   }
 
   public boolean has(String key) {

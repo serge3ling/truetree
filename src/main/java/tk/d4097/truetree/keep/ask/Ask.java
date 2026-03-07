@@ -11,11 +11,19 @@ import java.util.List;
 public class Ask {
   private final String lstName;
   private final List<Likeness<Lst>> dirLikenesses;
+  private final List<Likeness<Lst>> pathLikenesses;
   private final List<Likeness<Rec>> likenesses;
   private final Keep keep;
+  private List<Lst> lsts = new ArrayList<>();
 
-  public Ask(List<Likeness<Lst>> dirLikenesses, List<Likeness<Rec>> likenesses, String lstName, Keep keep) {
+  public Ask(
+      List<Likeness<Lst>> dirLikenesses,
+      List<Likeness<Lst>> pathLikenesses,
+      List<Likeness<Rec>> likenesses,
+      String lstName,
+      Keep keep) {
     this.dirLikenesses = dirLikenesses;
+    this.pathLikenesses = pathLikenesses;
     this.likenesses = likenesses;
     this.lstName = lstName;
     this.keep = keep;
@@ -25,7 +33,6 @@ public class Ask {
     Answer answer = new Answer();
     var noDirLikenesses = dirLikenesses.isEmpty();
     var noLikenesses = likenesses.isEmpty();
-    List<Lst> lsts = new ArrayList<>();
 
     for (Lst lst : keep.lsts()) {
       if (!lstName.isEmpty() && !lst.name().equals(lstName)) {
@@ -33,13 +40,13 @@ public class Ask {
       }
 
       if (noDirLikenesses) {
-        lsts.add(lst);
+        addToLsts(lst);
         continue;
       }
 
       for (Likeness<Lst> dirLikeness : dirLikenesses) {
         if (dirLikeness.isGood(lst)) {
-          lsts.add(lst);
+          addToLsts(lst);
           break;
         }
       }
@@ -61,5 +68,19 @@ public class Ask {
     }
 
     return answer;
+  }
+
+  private void addToLsts(Lst lst) {
+    if (pathLikenesses.isEmpty()) {
+      lsts.add(lst);
+      return;
+    }
+
+    for (Likeness<Lst> pathLikeness : pathLikenesses) {
+      if (pathLikeness.isGood(lst)) {
+        lsts.add(lst);
+        break;
+      }
+    }
   }
 }

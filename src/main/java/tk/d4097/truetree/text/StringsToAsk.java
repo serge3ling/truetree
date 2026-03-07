@@ -13,8 +13,9 @@ public class StringsToAsk {
     StringKeyValArgToLikenesses mapper = new StringKeyValArgToLikenesses();
     mapper.handle(keyValStrings);
     List<Likeness<Lst>> dirLikenesses = mapper.getDirLikenesses();
+    List<Likeness<Lst>> pathLikenesses = mapper.getPathLikenesses();
     List<Likeness<Rec>> likenesses = mapper.getLikenesses();
     String lstName = mapper.getLstName();
-    return new Ask(dirLikenesses, likenesses, lstName, keep);
+    return new Ask(dirLikenesses, pathLikenesses, likenesses, lstName, keep);
   }
 }

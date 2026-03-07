@@ -9,8 +9,10 @@ import java.util.List;
 
 public class StringKeyValArgToLikenesses {
   private final List<Likeness<Lst>> dirLikenesses;
+  private final List<Likeness<Lst>> pathLikenesses;
   private final List<Likeness<Rec>> likenesses;
   private final StringKeyValArgDirLikenessMap dirLikenessMap;
+  private final StringKeyValArgPathLikenessMap pathLikenessMap;
   private final StringKeyValArgLikenessMap likenessMap;
   private String lstName = "";
 
@@ -27,35 +29,46 @@ public class StringKeyValArgToLikenesses {
   private final int quote2Len = quote2.length();
 
   public StringKeyValArgToLikenesses() {
-    this(new ArrayList<>(), new ArrayList<>());
+    this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
   }
 
   public StringKeyValArgToLikenesses(
       List<Likeness<Lst>> dirLikenesses,
+      List<Likeness<Lst>> pathLikenesses,
       List<Likeness<Rec>> likenesses
   ) {
     this(
         dirLikenesses,
+        pathLikenesses,
         likenesses,
         new StringKeyValArgDirLikenessMap(),
+        new StringKeyValArgPathLikenessMap(),
         new StringKeyValArgLikenessMap()
     );
   }
 
   public StringKeyValArgToLikenesses(
       List<Likeness<Lst>> dirLikenesses,
+      List<Likeness<Lst>> pathLikenesses,
       List<Likeness<Rec>> likenesses,
       StringKeyValArgDirLikenessMap dirLikenessMap,
+      StringKeyValArgPathLikenessMap pathLikenessMap,
       StringKeyValArgLikenessMap likenessMap
   ) {
     this.dirLikenesses = dirLikenesses;
+    this.pathLikenesses = pathLikenesses;
     this.likenesses = likenesses;
     this.dirLikenessMap = dirLikenessMap;
+    this.pathLikenessMap = pathLikenessMap;
     this.likenessMap = likenessMap;
   }
 
   public List<Likeness<Lst>> getDirLikenesses() {
     return dirLikenesses;
+  }
+
+  public List<Likeness<Lst>> getPathLikenesses() {
+    return pathLikenesses;
   }
 
   public List<Likeness<Rec>> getLikenesses() {
@@ -95,6 +108,8 @@ public class StringKeyValArgToLikenesses {
 
     if (dirLikenessMap.has(likenessName)) {
       dirLikenesses.add(dirLikenessMap.get(likenessName).apply(val));
+    } else if (pathLikenessMap.has(likenessName)) {
+      pathLikenesses.add(pathLikenessMap.get(likenessName).apply(val));
     } else if (likenessMap.has(likenessName)) {
       likenesses.add(likenessMap.get(likenessName).apply(fld, val));
     } else if (likenessName.equals("lst-name")) {

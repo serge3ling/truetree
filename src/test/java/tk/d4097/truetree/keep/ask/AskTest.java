@@ -22,10 +22,11 @@ class AskTest {
       Keep keep = new Keep(cfg);
       keep.go();
       List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
+      List<Likeness<Lst>> pathLikenesses = new ArrayList<>();
       List<Likeness<Rec>> likenesses = new ArrayList<>();
       likenesses.add(new Has<>("capital", "Washington"));
       List<String> ids = Arrays.asList("cbs", "nbc");
-      Ask ask = new Ask(dirLikenesses, likenesses, "brdcst", keep);
+      Ask ask = new Ask(dirLikenesses, pathLikenesses, likenesses, "brdcst", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;
@@ -48,10 +49,11 @@ class AskTest {
       Keep keep = new Keep(cfg);
       keep.go();
       List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
+      List<Likeness<Lst>> pathLikenesses = new ArrayList<>();
       List<Likeness<Rec>> likenesses = new ArrayList<>();
       likenesses.add(new Has<>("full-name", "Corporation"));
       List<String> ids = Arrays.asList("bbc");
-      Ask ask = new Ask(dirLikenesses, likenesses, "brdcst", keep);
+      Ask ask = new Ask(dirLikenesses, pathLikenesses, likenesses, "brdcst", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;
@@ -74,9 +76,10 @@ class AskTest {
       Keep keep = new Keep(cfg);
       keep.go();
       List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
+      List<Likeness<Lst>> pathLikenesses = new ArrayList<>();
       List<Likeness<Rec>> likenesses = new ArrayList<>();
       List<String> ids = Arrays.asList("bbc", "rai", "cbs", "nbc");
-      Ask ask = new Ask(dirLikenesses, likenesses, "brdcst", keep);
+      Ask ask = new Ask(dirLikenesses, pathLikenesses, likenesses, "brdcst", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;
@@ -99,10 +102,11 @@ class AskTest {
       Keep keep = new Keep(cfg);
       keep.go();
       List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
+      List<Likeness<Lst>> pathLikenesses = new ArrayList<>();
       dirLikenesses.add(new DirIs<>("payments"));
       List<Likeness<Rec>> likenesses = new ArrayList<>();
 
-      Ask ask = new Ask(dirLikenesses, likenesses, "", keep);
+      Ask ask = new Ask(dirLikenesses, pathLikenesses, likenesses, "", keep);
       Answer answer = ask.find();
       Iterator<AnswerRec> iterator = answer.iterator();
       int cnt = 0;

@@ -19,8 +19,9 @@ class StringKeyValArgToLikenessesTest {
     String strW2HyphenKey = "full-name--has=Broadcast";
     List<String> likenessStrings = List.of(strWQuotesInside, strWQuotes2Inside, strW2HyphenKey);
     List<Likeness<Lst>> dirLikenesses = new ArrayList<>();
+    List<Likeness<Lst>> pathLikenesses = new ArrayList<>();
     List<Likeness<Rec>> likenesses = new ArrayList<>();
-    StringKeyValArgToLikenesses mapper = new StringKeyValArgToLikenesses(dirLikenesses, likenesses);
+    StringKeyValArgToLikenesses mapper = new StringKeyValArgToLikenesses(dirLikenesses, pathLikenesses, likenesses);
     mapper.handle(likenessStrings);
     assert dirLikenesses.size() == 2;
     assert likenesses.size() == 1;

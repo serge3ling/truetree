@@ -26,8 +26,10 @@ public class MainSwingWnd implements Runnable {
   private final JScrollPane txtScrollPane;
   private final JButton seekBtn;
   private final JButton refreshBtn;
+  private final JButton hintBtn;
   private final JTable table;
   private final JScrollPane tableScrollPane;
+  private final HintsWnd hintsWnd;
 
   public MainSwingWnd(Cfg cfg, Keep keep) {
     this.cfg = cfg;
@@ -38,6 +40,7 @@ public class MainSwingWnd implements Runnable {
     txtScrollPane = new JScrollPane(txtArea);
     seekBtn = new JButton("Seek");
     refreshBtn = new JButton("Refresh");
+    hintBtn = new JButton("Hints");
     table = new JTable();
     tableScrollPane = new JScrollPane(table);
 
@@ -49,16 +52,20 @@ public class MainSwingWnd implements Runnable {
     }
 
     frame = new JFrame("TrueTree @ " + topDirName);
+
+    hintsWnd = new HintsWnd(frame);
   }
 
   public void go() throws Exception {
     seekBtn.addActionListener(new SeekBtnListener());
     refreshBtn.addActionListener(new RefreshBtnListener());
+    hintBtn.addActionListener(new HintBtnListener());
 
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
     panel.add(txtScrollPane);
     panel.add(seekBtn);
     panel.add(refreshBtn);
+    panel.add(hintBtn);
     panel.add(tableScrollPane);
 
     frame.setContentPane(panel);
@@ -113,6 +120,13 @@ public class MainSwingWnd implements Runnable {
         table.setModel(model);
       } catch (Exception ignored) {
       }
+    }
+  }
+
+  class HintBtnListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+      hintsWnd.setVisible(true);
     }
   }
 }

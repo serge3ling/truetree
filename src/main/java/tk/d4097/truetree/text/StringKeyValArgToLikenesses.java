@@ -28,6 +28,8 @@ public class StringKeyValArgToLikenesses {
   private final String quote2 = "'";
   private final int quote2Len = quote2.length();
 
+  private final String lstNameKey = "lst-name";
+
   public StringKeyValArgToLikenesses() {
     this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
   }
@@ -133,5 +135,15 @@ public class StringKeyValArgToLikenesses {
     return withQuotesStripped
         .replaceAll("\\Q" + quoteEscaped + "\\E", quote)
         .replaceAll("\\Q" + quote2Escaped + "\\E", quote2);
+  }
+
+  public List<String> hints() {
+    List<String> hints = new ArrayList<>();
+    hints.add(lstNameKey + "=<lst-name>, like " + lstNameKey + "=Broadcast");
+    hints.addAll(dirLikenessMap.hints());
+    hints.addAll(pathLikenessMap.hints());
+    hints.addAll(likenessMap.hints());
+
+    return hints;
   }
 }

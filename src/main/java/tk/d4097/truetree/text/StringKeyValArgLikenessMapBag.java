@@ -1,25 +1,24 @@
 package tk.d4097.truetree.text;
 
-import tk.d4097.truetree.keep.Rec;
-import tk.d4097.truetree.keep.ask.likeness.Has;
+import tk.d4097.truetree.keep.Lst;
 import tk.d4097.truetree.keep.ask.likeness.Likeness;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
-public class StringKeyValArgRecLikenessMap {
-  private final Map<String, BiFunction<String, String, Likeness<Rec>>> map = new HashMap<>();
+public class StringKeyValArgLikenessMapBag<T> {
+  private final String kind;
+  private final Map<String, Function<String, Likeness<T>>> map = new HashMap<>();
   private final Map<String, String> hintMap = new HashMap<>();
 
-  public StringKeyValArgRecLikenessMap() {
-    this.put("has", Has::new, ", like this: full-name--has=<val>");
+  public StringKeyValArgLikenessMapBag(String kind) {
+    this.kind = kind;
   }
 
-  private void put(
-      String key, BiFunction<String, String, Likeness<Rec>> likenessHandle, String hint) {
+  public void put(String key, Function<String, Likeness<T>> likenessHandle, String hint) {
     map.put(key, likenessHandle);
     hintMap.put(key, hint);
   }
@@ -28,9 +27,9 @@ public class StringKeyValArgRecLikenessMap {
     return map.containsKey(key);
   }
 
-  public BiFunction<String, String, Likeness<Rec>> get(String key) {
+  public Function<String, Likeness<T>> get(String key) {
     if (!this.has(key)) {
-      throw new RuntimeException("Map of likenesses has no key \"" + key + "\"");
+      throw new RuntimeException("Map of " + kind + " likenesses has no key \"" + key + "\"");
     }
 
     return map.get(key);

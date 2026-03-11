@@ -5,25 +5,27 @@ import tk.d4097.truetree.keep.ask.likeness.Likeness;
 import tk.d4097.truetree.keep.ask.likeness.PathHas;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 public class StringKeyValArgPathLikenessMap {
-  private final Map<String, Function<String, Likeness<Lst>>> map = new HashMap<>();
+  private final StringKeyValArgLikenessMapBag<Lst> mapBag;
 
   public StringKeyValArgPathLikenessMap() {
-    map.put("path-has", PathHas::new);
+    mapBag = new StringKeyValArgLikenessMapBag<>("path");
+    mapBag.put("path-has", PathHas::new, "=<snip>, where <snip> is a snippet of path string");
   }
 
   public boolean has(String key) {
-    return map.containsKey(key);
+    return mapBag.has(key);
   }
 
   public Function<String, Likeness<Lst>> get(String key) {
-    if (!this.has(key)) {
-      throw new RuntimeException("Map of dir likenesses has no key \"" + key + "\"");
-    }
+    return mapBag.get(key);
+  }
 
-    return map.get(key);
+  public List<String> hints() {
+    return mapBag.hints();
   }
 }

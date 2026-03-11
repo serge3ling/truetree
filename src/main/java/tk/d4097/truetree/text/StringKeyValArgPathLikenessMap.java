@@ -4,9 +4,7 @@ import tk.d4097.truetree.keep.Lst;
 import tk.d4097.truetree.keep.ask.likeness.Likeness;
 import tk.d4097.truetree.keep.ask.likeness.PathHas;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 public class StringKeyValArgPathLikenessMap {

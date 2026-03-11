@@ -1,6 +1,5 @@
 package tk.d4097.truetree.text;
 
-import tk.d4097.truetree.keep.Lst;
 import tk.d4097.truetree.keep.ask.likeness.Likeness;
 
 import java.util.ArrayList;

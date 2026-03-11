@@ -13,7 +13,7 @@ public class StringKeyValArgToLikenesses {
   private final List<Likeness<Rec>> likenesses;
   private final StringKeyValArgDirLikenessMap dirLikenessMap;
   private final StringKeyValArgPathLikenessMap pathLikenessMap;
-  private final StringKeyValArgLikenessMap likenessMap;
+  private final StringKeyValArgRecLikenessMap likenessMap;
   private String lstName = "";
 
   private final String assignSplit = "=";
@@ -43,7 +43,7 @@ public class StringKeyValArgToLikenesses {
         likenesses,
         new StringKeyValArgDirLikenessMap(),
         new StringKeyValArgPathLikenessMap(),
-        new StringKeyValArgLikenessMap()
+        new StringKeyValArgRecLikenessMap()
     );
   }
 
@@ -53,7 +53,7 @@ public class StringKeyValArgToLikenesses {
       List<Likeness<Rec>> likenesses,
       StringKeyValArgDirLikenessMap dirLikenessMap,
       StringKeyValArgPathLikenessMap pathLikenessMap,
-      StringKeyValArgLikenessMap likenessMap
+      StringKeyValArgRecLikenessMap likenessMap
   ) {
     this.dirLikenesses = dirLikenesses;
     this.pathLikenesses = pathLikenesses;

@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public class StringKeyValArgLikenessMap {
+public class StringKeyValArgRecLikenessMap {
   private final Map<String, BiFunction<String, String, Likeness<Rec>>> map = new HashMap<>();
 
-  public StringKeyValArgLikenessMap() {
+  public StringKeyValArgRecLikenessMap() {
     map.put("has", Has::new);
   }
 

@@ -9,8 +9,17 @@ import tk.d4097.truetree.keep.ask.likeness.Likeness;
 import java.util.List;
 
 public class StringsToAsk {
+  private final StringKeyValArgToLikenesses mapper;
+
+  public StringsToAsk() {
+    this(new StringKeyValArgToLikenesses());
+  }
+
+  public StringsToAsk(StringKeyValArgToLikenesses mapper) {
+    this.mapper = mapper;
+  }
+
   public Ask makeAsk(List<String> keyValStrings, Keep keep) {
-    StringKeyValArgToLikenesses mapper = new StringKeyValArgToLikenesses();
     mapper.handle(keyValStrings);
     List<Likeness<Lst>> dirLikenesses = mapper.getDirLikenesses();
     List<Likeness<Lst>> pathLikenesses = mapper.getPathLikenesses();

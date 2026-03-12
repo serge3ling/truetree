@@ -19,12 +19,14 @@ import java.util.List;
 public class MainSwingWnd implements Runnable {
   private final Cfg cfg;
   private final Keep keep;
+  private AnswerGridModel gridModel = new AnswerGridModel(new Answer());
   private final JFrame frame;
   private final JPanel panel;
   private final JTextArea txtArea;
   private final JScrollPane txtScrollPane;
   private final JButton seekBtn;
   private final JButton refreshBtn;
+  private final JButton saveGridBtn;
   private final JButton hintBtn;
   private final JTable table;
   private final JScrollPane tableScrollPane;
@@ -39,6 +41,7 @@ public class MainSwingWnd implements Runnable {
     txtScrollPane = new JScrollPane(txtArea);
     seekBtn = new JButton("Seek");
     refreshBtn = new JButton("Refresh");
+    saveGridBtn = new JButton("Save Grid");
     hintBtn = new JButton("Hints");
     table = new JTable();
     tableScrollPane = new JScrollPane(table);
@@ -58,12 +61,14 @@ public class MainSwingWnd implements Runnable {
   public void go() throws Exception {
     seekBtn.addActionListener(new SeekBtnListener());
     refreshBtn.addActionListener(new RefreshBtnListener());
+    saveGridBtn.addActionListener(new SaveGridBtnListener());
     hintBtn.addActionListener(new HintBtnListener());
 
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
     panel.add(txtScrollPane);
     panel.add(seekBtn);
     panel.add(refreshBtn);
+    panel.add(saveGridBtn);
     panel.add(hintBtn);
     panel.add(tableScrollPane);
 
@@ -91,7 +96,7 @@ public class MainSwingWnd implements Runnable {
 
       try {
         Answer answer = ask.find();
-        AnswerGridModel gridModel = new AnswerGridModel(answer);
+        gridModel = new AnswerGridModel(answer);
         String[][] array = gridModel.getArray();
         Collection<String> colNames = gridModel.getColNames();
         DefaultTableModel model = new DefaultTableModel();
@@ -118,6 +123,39 @@ public class MainSwingWnd implements Runnable {
         DefaultTableModel model = new DefaultTableModel();
         table.setModel(model);
       } catch (Exception ignored) {
+      }
+    }
+  }
+
+  class SaveGridBtnListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+      Collection<String> colNames;
+      String[][] array;
+
+      try {
+        colNames = gridModel.getColNames();
+        array = gridModel.getArray();
+      } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+            frame, "Could not have the grid ready.",
+            "Grid Error", JOptionPane.ERROR_MESSAGE);
+
+        return;
+      }
+
+      GridFile gridFile = new GridFile(cfg, colNames, array);
+
+      try {
+        gridFile.save();
+        JOptionPane.showMessageDialog(frame, "Saved.",
+            "Save", JOptionPane.INFORMATION_MESSAGE);
+      } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+            frame,
+            "Could not save the grid.\n"
+                + e.getMessage(),
+            "Save Error", JOptionPane.ERROR_MESSAGE);
       }
     }
   }
